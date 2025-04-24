@@ -40,3 +40,66 @@ if valid_temperature(celsius):
     print(f"The temperature in Fahrenheit is: {fahrenheit}")
 else:
     print("Invalid temperature. Please enter a value between -100 and 100.")
+
+
+
+
+#Q3
+"""
+Basic Calculator Program
+
+This program allows the user to perform basic arithmetic operations including
+addition, subtraction, multiplication, and division. It prompts the user to
+input two numbers and select an operation to perform. The program then
+displays the result of the chosen calculation. """
+
+def addition(num1, num2):
+    return num1 + num2
+
+def subtraction(num1, num2):
+    return num1 - num2
+
+def multiplication(num1, num2):
+    return num1 * num2
+
+def division(num1, num2):
+    if num2 == 0:
+        return "Error: cannot divide by zero"
+    return num1 / num2
+
+
+def get_numbers():
+    num1 = float(input("Enter the first number: "))
+    num2 = float(input("Enter the second number: "))
+    return num1, num2
+
+
+def get_operation():
+    print("Select an operation:")
+    print("1. Addition (+)")
+    print("2. Subtraction (-)")
+    print("3. Multiplication (*)")
+    print("4. Division (/)")
+    return int(input("Enter your choice (1-4): "))
+
+
+def calculate_result(num1, num2, operation):
+    match operation:
+        case 1:
+            return addition(num1, num2)
+        case 2:
+            return subtraction(num1, num2)
+        case 3:
+            return multiplication(num1, num2)
+        case 4:
+            return division(num1, num2)
+        case _:
+            return "Undefined operation"
+
+
+def run_program():
+    num1, num2 = get_numbers()
+    operation = get_operation()
+    result = calculate_result(num1, num2, operation)
+    print(f"Result: {result}")
+
