@@ -103,3 +103,63 @@ def run_program():
     result = calculate_result(num1, num2, operation)
     print(f"Result: {result}")
 
+
+
+
+#Q5
+def income_tax_calculator(annual_income):
+    """
+    This function calculates the tax amount for a given taxable annual income based on the UK tax rates and allowances.
+    The tax is calculated progressively across tax bands, as per the following rates and allowances:
+
+    Band               |  Taxable income   | Tax rate 
+    Personal allowance | Up to 12,570      | 0% 
+    Basic rate         | 12,571 to 50,270  | 20%
+    Higher rate        | 50,271 to 125,140 | 40%
+    Additional rate    | over 125,140      | 45%
+
+    Key Details:
+    Personal Allowance: The first £12,570 of taxable income is tax-free.
+    Progressive Taxation: Income tax is applied progressively across bands. For example, an annual income of £25,000 would be taxed as follows:
+    The first £12,570 at 0% (personal allowance).
+    The remaining £12,430 (i.e., £25,000 - £12,570) at 20% (basic rate).
+
+    Args:
+        annual_income: float
+
+    Returns:
+        a float, representing the total calculated tax, rounded to one decimal point. You can use the round() function, e.g round(tax, 1)
+        0.0 if annual_income is not a positive integer.
+    """
+
+    if not isinstance(annual_income, (int, float)) or annual_income <= 0:
+        return 0.0
+
+    tax = 0.0
+
+    if annual_income <= 12570:
+        return 0.0
+
+    # Basic rate
+    if annual_income > 12570:
+        basic_band = min(annual_income, 50270) - 12570
+        tax += basic_band * 0.20
+
+    # Higher rate
+    if annual_income > 50270:
+        higher_band = min(annual_income, 125140) - 50270
+        tax += higher_band * 0.40
+
+    # Additional rate
+    if annual_income > 125140:
+        additional_band = annual_income - 125140
+        tax += additional_band * 0.45
+
+    return round(tax, 1)
+
+
+print(income_tax_calculator(12000))     # 0.0
+print(income_tax_calculator(14000))     # 286.0
+print(income_tax_calculator(25000))     # 2486.0
+print(income_tax_calculator(100000))    # 27432.0
+
