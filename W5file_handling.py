@@ -29,3 +29,78 @@ They walked further into a clearing, where wildflowers bloomed in a riot of colo
 As the day turned to dusk, they made their way back home, the path now lit by the soft glow of fireflies. Oliver and Luna, side by side, reflected on their adventure. "Thank you for today, Luna," Oliver said in his quiet, measured voice. "I saw so many wonderful things."
 "Anytime, Oliver," Luna replied. "There's always something magical in the world if we just take the time to look."
 And so, they walked on, under the twinkling stars, grateful for the beauty of their friendship and the enchanting forest that was their home."""
+
+
+
+
+#Q2
+
+'''Grade Analyser
+In order to decide student's overall classification, the university needs to take an overall mean average of their grades across all modules.
+The classifications and boundaries are as follows:
+>= 70 : 1
+>=60 : 2:1
+>=50 : 2:2
+>=40 : 3
+<40 : F
+
+Each student's data is stored in a row in a csv file (4 sample files have been provided).
+Students can have between 1 - 12 modules, for example:
+203982,73,42,55,83,,,,,,,, # 4 modules
+203742,55,97,57,37,76,68,,,,,, # 6 modules
+You should ensure that you consider the number of modules when calculating your mean.
+
+Your code needs to:
+- ask for the filename of the student file 
+- read in the data, and for each student calculate their average grade and classification
+- write out this calculated data in the format:
+     student_id,average_grade,classification
+     The average grade should be given to 2 decimal places
+     this can be acheived by using the following in an fstring: {variable_name:.2f}
+- write this data out to a file named input_file_name + _out.csv - e.g. the input file name 'student_data.csv' -> 'student_data.csv_out.csv'
+
+Your output files must be structured exactly as described - output files for all the test files have been provided so you can compare and ensure they are identical.'''
+
+
+filename = input("Enter the filename of the student file: ")
+
+with open(filename, "r") as file:
+  
+    lines = file.readlines()
+
+
+    output_filename = filename + "_out.csv"
+
+
+with open(output_filename, "w") as output_file:
+   
+    for line in lines[1:]:  
+       
+        data = line.strip().split(",")
+
+        student_id = data[0]
+
+        try:
+            grades = [int(grade) for grade in data[1:] if grade]
+        except ValueError:
+            print(f"Skipping line due to invalid grade data: {line}")
+            continue
+
+      
+        if grades:
+            average_grade = sum(grades) / len(grades)
+            average_grade = round(average_grade, 2)  
+        else:
+            average_grade = 0  
+        if average_grade >= 70:
+            classification = "1"
+        elif average_grade >= 60:
+            classification = "2:1"
+        elif average_grade >= 50:
+            classification = "2:2"
+        elif average_grade >= 40:
+            classification = "3"
+        else:
+            classification = "F"
+
+        output_file.write(f"{student_id},{average_grade:.2f},{classification}\n")
